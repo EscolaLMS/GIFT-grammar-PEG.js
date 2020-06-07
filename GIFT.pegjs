@@ -62,6 +62,7 @@ Description "Description"
 Question
   = __
     title:QuestionTitle? _
+    tags:QuestionTags? _
     stem1:QuestionStem? _ 
     '{' _
     answers:(MatchingAnswers / TrueFalseAnswer / MCAnswers / NumericalAnswerType / SingleCorrectShortAnswer / EssayAnswer ) _
@@ -76,7 +77,7 @@ Question
     var format = (stem1 && stem1.format) || (stem2 && stem2.format) || "moodle";
     var text = stem1Text + ( embedded ? "_____ " + stem2.text : "");
     
-    var question = {type:answers.type, title:title, stem: {format: format, text: text}, hasEmbeddedAnswers:embedded};
+    var question = {type:answers.type, title:title, tags:tags, stem: {format: format, text: text}, hasEmbeddedAnswers:embedded};
     question = processAnswers(question, answers);
     resetLastQuestionTextFormat();
     return question;
@@ -203,6 +204,9 @@ NumberAlone "(number answer)"
 QuestionTitle ":: Title ::"
   = '::' title:TitleText+ '::' { return title.join('') }
   
+QuestionTags "@@ Non-hierarchichal tags @@"
+  = '@@' tags:TagText+ '@@' { return tags.join('') }
+
 QuestionStem "Question stem"
   = stem:RichText 
     { setLastQuestionTextFormat(stem.format); // save format for question, for default of other non-formatted text
@@ -217,6 +221,9 @@ BlankLine "blank line"
 
 TitleText "(Title text)"
   = !'::' t:(EscapeSequence / UnescapedChar) {return t}
+
+TagText "(Tag text)"
+  = !'@@' t:(EscapeSequence / UnescapedChar) {return t}
 
 TextChar "(text character)"
   = (UnescapedChar / EscapeSequence / EscapeChar)

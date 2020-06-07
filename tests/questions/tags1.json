@@ -1,0 +1,12 @@
+[{
+        "type": "TF",
+        "title": null,
+        "tags": "tag1 tag2 tag-3",
+        "stem": {"format":"moodle", "text":"True or false?"},
+        "hasEmbeddedAnswers": false,
+        "globalFeedback": null,
+        "isTrue": true,
+        "incorrectFeedback": null,
+        "correctFeedback": null
+    }
+]
