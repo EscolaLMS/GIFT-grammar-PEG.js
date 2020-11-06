@@ -1,0 +1,67 @@
+[
+    {
+       "type": "MC",
+       "title": null,
+       "stem": {
+          "format": "moodle",
+          "text": "Question on First line.\nSecond line."
+       },
+       "hasEmbeddedAnswers": false,
+       "globalFeedback": null,
+       "choices": [
+          {
+             "isCorrect": true,
+             "weight": null,
+             "text": {
+                "format": "moodle",
+                "text": "answer\none"
+             },
+             "feedback": {
+                "format": "moodle",
+                "text": "feedback\none"
+             }
+          },
+          {
+             "isCorrect": false,
+             "weight": null,
+             "text": {
+                "format": "moodle",
+                "text": "wrong answer\none"
+             },
+             "feedback": {
+                "format": "moodle",
+                "text": "wrong answer feedback\none"
+             }
+          }
+       ]
+    },
+    {
+       "type": "Matching",
+       "title": null,
+       "stem": {
+          "format": "moodle",
+          "text": "Question"
+       },
+       "hasEmbeddedAnswers": false,
+       "globalFeedback": {
+          "format": "moodle",
+          "text": "general\nfeedback"
+       },
+       "matchPairs": [
+          {
+             "subquestion": {
+                "format": "moodle",
+                "text": "Item\n1"
+             },
+             "subanswer": "Match 1"
+          },
+          {
+             "subquestion": {
+                "format": "moodle",
+                "text": "Item\n2"
+             },
+             "subanswer": "Match 2"
+          }
+       ]
+    }
+ ]

@@ -1,0 +1,10 @@
+Question on First line.\nSecond line.{
+    =answer\none#feedback\none
+    ~wrong answer\none#wrong answer feedback\none
+}
+
+Question {
+    =Item\n1 -> Match\n1
+    =Item\n2 -> Match\n2
+    ####general\nfeedback
+}

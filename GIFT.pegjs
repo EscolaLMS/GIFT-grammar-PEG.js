@@ -33,10 +33,17 @@
     return allAreCorrect;
   }
   function removeNewLinesDuplicateSpaces(text) {
-    text = text.replace(/[\n\r]/g,' '); // replace newlines with spaces
+    text = removeNewLines(text);
+    return removeDuplicateSpaces(text);
+  }
+  function removeNewLines(text) {
+    return text.replace(/[\n\r]/g,' '); // replace newlines with spaces
+  }
+  function removeDuplicateSpaces(text) {
     return text.replace(/\s\s+/g,' '); 
   }
-  function setLastQuestionTextFormat(fmt) {
+
+function setLastQuestionTextFormat(fmt) {
     format = fmt;
   }
   function getLastQuestionTextFormat() {
@@ -219,10 +226,10 @@ TitleText "(Title text)"
   = !'::' t:(EscapeSequence / UnescapedChar) {return t}
 
 TextChar "(text character)"
-  = (UnescapedChar / EscapeSequence / EscapeChar)
+  = (UnescapedChar / EscapeSequence / Newline / EscapeChar )
 
 MatchTextChar "(text character)"
-  = (UnescapedMatchChar / EscapeSequence / EscapeChar)
+  = (UnescapedMatchChar / EscapeSequence / Newline / EscapeChar)
 
 Format "format"
   = '[' format:('html' /
@@ -230,6 +237,9 @@ Format "format"
                 'plain' / 
                 'moodle') 
     ']' {return format}
+
+Newline "(newline)"
+  = '\\n' {return '\n'}
 
 EscapeChar "(escape character)"
   = '\\' 
@@ -261,15 +271,15 @@ MatchRichText "(formatted text excluding '->'"
   = format:Format? _ txt:MatchTextChar+ { return {
       format:(format!==null ? format : getLastQuestionTextFormat()), 
       text:((format !== "html") 
-          ? removeNewLinesDuplicateSpaces(txt.join('').trim())
+          ? removeDuplicateSpaces(txt.join('').trim())
           : txt.join('').replace(/\r\n/g,'\n'))}}  // avoid failing tests because of Windows line breaks 
 
 RichText "(formatted text)"
   = format:Format? _ txt:TextChar+ { return {
       format:(format!==null ? format : getLastQuestionTextFormat()), 
       text:((format !== "html") 
-          ? removeNewLinesDuplicateSpaces(txt.join('').trim())
-          : txt.join('').replace(/\r\n/g,'\n'))}}  // avoid failing tests because of Windows line breaks 
+         ? removeDuplicateSpaces(txt.join('').trim())
+         : txt.join('').replace(/\r\n/g,'\n'))}}  // avoid failing tests because of Windows line breaks 
 
 PlainText "(unformatted text)"
   = txt:TextChar+ { return removeNewLinesDuplicateSpaces(txt.join('').trim())} 
