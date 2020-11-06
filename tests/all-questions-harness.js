@@ -22,7 +22,7 @@ describe('GIFT parser harness: ', () => {
             var jsonParse = JSON.parse(jsonText);
             var parsing = this.parser.parse(giftText);
 
-            assert.deepEqual(parsing, jsonParse, "Deep equal does not match");
+            assert.deepStrictEqual(parsing, jsonParse, "Deep equal does not match");
         });
     });
 
