@@ -239,7 +239,7 @@ Format "format"
     ']' {return format}
 
 Newline "(newline)"
-  = '\\n' {return '\n'}
+  = '\\n' {return '\\n'}
 
 EscapeChar "(escape character)"
   = '\\' 
@@ -267,22 +267,22 @@ UnescapedMatchChar ""
 ControlChar 
   = '=' / '~' / "#" / '{' / '}' / '\\' / ':'
 
-MatchRichText "(formatted text excluding '->'"
+MatchRichText "(formatted text excluding '->')"
   = format:Format? _ txt:MatchTextChar+ { return {
       format:(format!==null ? format : getLastQuestionTextFormat()), 
       text:((format !== "html") 
-          ? removeDuplicateSpaces(txt.join('').trim())
+          ? removeNewLinesDuplicateSpaces(txt.join('').trim()).replace(/\\n/g,'\n')
           : txt.join('').replace(/\r\n/g,'\n'))}}  // avoid failing tests because of Windows line breaks 
 
 RichText "(formatted text)"
   = format:Format? _ txt:TextChar+ { return {
       format:(format!==null ? format : getLastQuestionTextFormat()), 
       text:((format !== "html") 
-         ? removeDuplicateSpaces(txt.join('').trim())
+         ? removeNewLinesDuplicateSpaces(txt.join('').trim()).replace(/\\n/g,'\n')
          : txt.join('').replace(/\r\n/g,'\n'))}}  // avoid failing tests because of Windows line breaks 
 
 RightMatchText "(unformatted text)"
-  = txt:TextChar+ { return removeNewLinesDuplicateSpaces(txt.join('').trim())} 
+  = txt:TextChar+ { return removeNewLinesDuplicateSpaces(txt.join('').trim().replace(/\\n/g,'\n'))} 
 
 CategoryText "(category text)"
   = txt:(!EndOfLine .)* &(EndOfLine / EndOfFile) { return txt.flat().join('') } 
