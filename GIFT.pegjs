@@ -97,7 +97,7 @@ Matches "matches"
   = matchPairs:(Match)+  { return matchPairs }
   
 Match "match"
-  = _ '=' _ left:MatchRichText? _ '->' _ right:PlainText _ 
+  = _ '=' _ left:MatchRichText? _ '->' _ right:RightMatchText _ 
     { var matchPair = { 
         subquestion:{
           format:(left !== null ? left.format : getLastQuestionTextFormat()), 
@@ -281,7 +281,7 @@ RichText "(formatted text)"
          ? removeDuplicateSpaces(txt.join('').trim())
          : txt.join('').replace(/\r\n/g,'\n'))}}  // avoid failing tests because of Windows line breaks 
 
-PlainText "(unformatted text)"
+RightMatchText "(unformatted text)"
   = txt:TextChar+ { return removeNewLinesDuplicateSpaces(txt.join('').trim())} 
 
 CategoryText "(category text)"
