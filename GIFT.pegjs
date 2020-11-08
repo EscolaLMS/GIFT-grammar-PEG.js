@@ -25,6 +25,11 @@
     } 
     return question;
   }
+  function formatRichText(fmt, txt1) {
+    return ((fmt !== "html") 
+          ? removeNewLinesDuplicateSpaces(txt1.join('').trim()).replace(/\\n/g,'\n')
+          : txt1.join('').replace(/\r\n/g,'\n').replace(/\\n/g,'\n')).trim()
+  }
   function areAllCorrect(choices) {
     var allAreCorrect = true;
     for (var i = 0; i < choices.length; i++) {
@@ -270,16 +275,12 @@ ControlChar
 MatchRichText "(formatted text excluding '->')"
   = format:Format? _ txt:MatchTextChar+ { return {
       format:(format!==null ? format : getLastQuestionTextFormat()), 
-      text:((format !== "html") 
-          ? removeNewLinesDuplicateSpaces(txt.join('').trim()).replace(/\\n/g,'\n')
-          : txt.join('').replace(/\r\n/g,'\n'))}}  // avoid failing tests because of Windows line breaks 
+      text:formatRichText(format,txt)}}  // avoid failing tests because of Windows line breaks 
 
 RichText "(formatted text)"
   = format:Format? _ txt:TextChar+ { return {
       format:(format!==null ? format : getLastQuestionTextFormat()), 
-      text:((format !== "html") 
-         ? removeNewLinesDuplicateSpaces(txt.join('').trim()).replace(/\\n/g,'\n')
-         : txt.join('').replace(/\r\n/g,'\n'))}}  // avoid failing tests because of Windows line breaks 
+      text:formatRichText(format,txt)}}  // avoid failing tests because of Windows line breaks 
 
 RightMatchText "(unformatted text)"
   = txt:TextChar+ { return removeNewLinesDuplicateSpaces(txt.join('').trim().replace(/\\n/g,'\n'))} 
