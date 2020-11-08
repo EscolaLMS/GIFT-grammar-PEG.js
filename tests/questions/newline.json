@@ -63,5 +63,14 @@
              "subanswer": "Match 2"
           }
        ]
-    }
+    },
+    {
+      "type": "Description",
+      "title": null,
+      "stem": {
+         "format": "html",
+         "text": "What is returned by mystery(2) ?\n<span class=\"\" style=\"font-family: monospace;color: blue;white-space: pre-wrap;\">\nint mystery(int x) {\n&nbsp;   switch (x) {\n&nbsp;      case 1: x = 4;\n&nbsp;      case 2: x = 5;\n&nbsp;      case 3: x = 6;\n&nbsp;   }\n&nbsp;   return x;\n}\n</span>"
+      },
+      "hasEmbeddedAnswers": false
+   }
  ]

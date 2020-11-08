@@ -8,3 +8,15 @@ Question {
     =Item\n2 -> Match\n2
     ####general\nfeedback
 }
+
+[html]What is returned by mystery(2) ?
+<span class\="" style\="font-family\: monospace;color\: blue;white-space\: pre-wrap;">
+int mystery(int x) \{
+&nbsp;   switch (x) \{
+&nbsp;      case 1\: x \= 4;
+&nbsp;      case 2\: x \= 5;
+&nbsp;      case 3\: x \= 6;
+&nbsp;   \}
+&nbsp;   return x;
+\}
+</span>
