@@ -4,6 +4,7 @@
   "description": "Parser of GIFT question format based on PEG.js",
   "main": "pegjs-gift.js",
   "types": "index.d.ts",
+  "private": false,
   "dependencies": {
     "pegjs": "^0.10.x"
   },
