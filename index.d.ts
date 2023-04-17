@@ -13,6 +13,7 @@ interface Options {
   filename?: string;
   startRule?: string;
   tracer?: any;
+  noTrim?: boolean;
   [key: string]: any;
 }
 
