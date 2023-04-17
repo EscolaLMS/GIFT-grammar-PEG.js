@@ -20,7 +20,7 @@ jobs:
       - run: npm run build      
       - run: git add . && git commit -am "build"
       - run: npm version ${{github.ref_name}} --force
-      - run: npm publish
+      - run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           
